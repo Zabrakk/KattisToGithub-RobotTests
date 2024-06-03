@@ -3,6 +3,7 @@ Documentation    Tests for the parse_arguments function
 Library          ../KattisToGithub/src/argument_parser.py
 Library          Collections
 
+
 *** Variables ***
 @{required_args_short}    -u    my_username    -p    my_password    -d    ../solutions
 @{required_args_long}     --user    my_username    --password    my_password    --directory    ../solutions
