@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Tests for the parse_arguments function
-Library          ./KattisToGithub/src/argument_parser.py
+Library          ../KattisToGithub/src/argument_parser.py
 Library          Collections
 
 *** Variables ***
