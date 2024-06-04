@@ -4,8 +4,9 @@ Library    ../test_utils.py
 
 
 *** Variables ***
-&{dict} =    test.py=print('test')
-@{vals} =    problem_link.com    submission_link.com    RoboTest    Medium    1    &{dict}
+&{filename_code_dict} =    test.py=print('test')
+&{filename_language_dict} =    test.py=Python 3
+@{vals} =    problem_link.com    submission_link.com    RoboTest    Medium    1    &{filename_code_dict}    ${filename_language_dict}
 
 
 *** Keywords ***
@@ -40,6 +41,10 @@ Set Filename Code Dict
     [Arguments]    ${sp}    ${dict}
     ${sp.filename_code_dict}    Set Variable    ${dict}
 
+Set Filename Language Dict
+    [Arguments]    ${sp}    ${dict}
+    ${sp.filename_language_dict}    Set Variable    ${dict}
+
 Set Attributes
     [Arguments]    ${sp}    @{vals}
     Set Problem Link    ${sp}    ${vals}[0]
@@ -48,4 +53,4 @@ Set Attributes
     Set Difficulty    ${sp}    ${vals}[3]
     Set Status    ${sp}    ${vals}[4]
     Set Filename Code Dict    ${sp}    ${vals}[5]
-
+    Set Filename Language Dict    ${sp}    ${vals}[6]
