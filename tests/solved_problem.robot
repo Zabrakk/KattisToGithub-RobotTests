@@ -7,11 +7,11 @@ Library    ../.venv/lib/site-packages/robot/libraries/Collections.py
 *** Test Cases ***
 Test Create
     [Documentation]    Ensure that a SolvedProblem object is created successfully
-    ${sp} =    Get Solved Problem Object
+    ${sp} =    Get Solved Problem
     Should Not Be Equal    ${sp}    ${None}
 
 Test Updated Attribute Values
-    ${sp} =    Get Solved Problem Object
+    ${sp} =    Get Solved Problem
     Set Attributes    ${sp}    @{vals}
     Should Be Equal As Strings    ${sp.problem_link}    ${vals}[0]
     Should Be Equal As Strings    ${sp.submissions_link}    ${vals}[1]
@@ -21,7 +21,7 @@ Test Updated Attribute Values
     Should Be Equal               ${sp.filename_code_dict}    ${vals}[5]
 
 Test Writing To File
-    ${sp} =    Get Solved Problem Object
+    ${sp} =    Get Solved Problem
     Set Attributes    ${sp}    @{vals}
     Create Directory    tests/Solutions/
     Call Write To File    ${sp}    tests/
