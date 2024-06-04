@@ -9,10 +9,6 @@ Library    ../test_utils.py
 
 
 *** Keywords ***
-Get Solved Problem Object
-    ${sp} =    Get Solved Problem
-    RETURN    ${sp}
-
 Set Problem Link
     [Arguments]    ${sp}    ${link}
     ${sp.problem_link}    Set Variable    ${link}
