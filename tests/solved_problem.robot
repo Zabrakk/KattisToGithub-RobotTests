@@ -1,53 +1,35 @@
 *** Settings ***
-Library    ../KattisToGithub/src/solved_problem.py
-Library    ../test_utils.py
+Resource    ../resources/solved_problems.resource
 
-
-*** Keywords ***
-Get Solved Problem Object
-    ${sp} =    test_utils.Get Solved Problem
-    RETURN    ${sp}
-
-Set Problem Link
-    [Arguments]    ${sp}    ${link}
-    ${sp.problem_link}    Set Variable    ${link}
-
-Set Submissions Link
-    [Arguments]    ${sp}    ${link}
-    ${sp.submissions_link}    Set Variable    ${link}
-
-Set Name
-    [Arguments]    ${sp}    ${name}
-    ${sp.name}    Set Variable    ${name}
-
-Set Difficulty
-    [Arguments]    ${sp}    ${difficulty}
-    ${sp.difficulty}    Set Variable    ${difficulty}
-
-Get Status
-    [Arguments]    ${int_val}
-    ${int_val} =    Convert To Integer    ${int_val}
-    ${status} =    test_utils.Get Problem Status    ${int_val}
-    RETURN    ${status}
-
-Set Status
-    [Arguments]    ${sp}    ${int_val}
-    ${status} =    Get Status    ${int_val}
-    ${sp.status}    Set Variable    ${status}
-
-Set Filename Code Dict
-    [Arguments]    ${sp}    ${dict}
-    ${sp.filename_code_dict}    Set Variable    ${dict}
-
+Library    ../.venv/lib/site-packages/robot/libraries/OperatingSystem.py
+Library    ../.venv/lib/site-packages/robot/libraries/Collections.py
 
 *** Test Cases ***
-Test 1
+Test Create
+    [Documentation]    Ensure that a SolvedProblem object is created successfully
     ${sp} =    Get Solved Problem Object
-    Set Problem Link    ${sp}    https://test.com/problem
-    Set Submissions Link    ${sp}    https://test.com/submissions
-    Set Name    ${sp}    RoboTest
-    Set Difficulty    ${sp}    Medium
-    Set Status    ${sp}    1
-    ${dict} =    Create Dictionary    test.py=print('hello')
-    Set Filename Code Dict    ${sp}    ${dict}
-    Log To Console    ${sp}
+    Should Not Be Equal    ${sp}    ${None}
+
+Test Updated Attribute Values
+    ${sp} =    Get Solved Problem Object
+    Set Attributes    ${sp}    @{vals}
+    Should Be Equal As Strings    ${sp.problem_link}    ${vals}[0]
+    Should Be Equal As Strings    ${sp.submissions_link}    ${vals}[1]
+    Should Be Equal As Strings    ${sp.name}    ${vals}[2]
+    Should Be Equal As Strings    ${sp.difficulty}    ${vals}[3]
+    Should Be Equal As Integers   ${sp.status}    ${vals}[4]
+    Should Be Equal               ${sp.filename_code_dict}    ${vals}[5]
+
+Test Writing To File
+    ${sp} =    Get Solved Problem Object
+    Set Attributes    ${sp}    @{vals}
+    Create Directory    tests/Solutions/
+    Call Write To File    ${sp}    tests/
+    @{keys} =    Get Dictionary Keys    ${dict}
+    ${filepath} =    Set Variable    tests/Solutions/${keys}[0]
+    File Should Exist    ${filepath}
+    File Should Not Be Empty    ${filepath}
+    ${file_contents} =    Get File    ${filepath}
+    Should Be Equal As Strings    ${file_contents}    ${dict}[${keys}[0]]
+    Remove File    ${filepath}
+    Remove Directory    tests/Solutions/
