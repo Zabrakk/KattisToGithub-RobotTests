@@ -1,5 +1,5 @@
 # KattisToGithub-RobotTests
-Robot Framework tests for KattisToGithub. Unfinished.
+Robot Framework tests for [KattisToGithub](https://github.com/Zabrakk/KattisToGithub). Unfinished.
 
 ## Install
 ```bash
