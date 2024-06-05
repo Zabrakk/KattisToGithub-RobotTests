@@ -5,7 +5,7 @@ Robot Framework tests for KattisToGithub. Unfinished.
 ```bash
 git clone https://github.com/Zabrakk/KattisToGithub-RobotTests.git
 cd KattisToGithub-RobotTest
-git submodule update --ini
+git submodule update --init
 pip install -r requirements.txt
 ```
 
