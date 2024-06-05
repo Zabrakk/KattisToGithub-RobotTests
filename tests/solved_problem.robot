@@ -1,8 +1,7 @@
 *** Settings ***
 Resource    ../resources/solved_problems.resource
-
-Library    ../.venv/lib/site-packages/robot/libraries/OperatingSystem.py
-Library    ../.venv/lib/site-packages/robot/libraries/Collections.py
+Library    OperatingSystem
+Library    Collections
 
 *** Test Cases ***
 Test Create
